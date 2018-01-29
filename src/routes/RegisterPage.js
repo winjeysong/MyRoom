@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'dva';
 import Register from '../components/Register/Register';
+import Layout from '../components/Layout/Layout';
 
 function RegisterPage() {
+  const content = <Register />;
   return (
-    <Register />
+    <Layout content={content} />
   );
 }
 

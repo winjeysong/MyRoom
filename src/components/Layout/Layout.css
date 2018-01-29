@@ -1,0 +1,35 @@
+.footer-wrapper {
+  margin: 0 auto;
+  border: 6px solid #fff; 
+  width: 150px;
+  height: 150px;
+  text-align: left;
+  padding: 20px 0 0 10px;
+}
+
+.trans-style {
+  transition: color,transform .3s ease-in-out;
+}
+
+.footer-link {
+  display: inline-block;
+  color: #ffffff;
+  composes: trans-style;
+}
+
+.footer-link:hover {
+  color: #ffffffab;
+}
+
+.footer-icon {
+  display: inline-block;
+  composes: trans-style;
+}
+
+.footer-link:hover .footer-icon{
+  transform: rotate(360deg) scale(0);
+}
+
+
+
+

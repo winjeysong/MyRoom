@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'dva';
 import Login from '../components/Login/Login';
+import Layout from '../components/Layout/Layout';
 
 function LoginPage() {
+  const content = <Login />;
   return (
-    <Login />
+    <Layout content={content} />
   );
 }
 
