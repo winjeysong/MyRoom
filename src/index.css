@@ -3,3 +3,9 @@ html, body, :global(#root) {
   height: 100%;
 }
 
+:global(.global-box-style) {
+  padding: 26px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  box-shadow: 0 0 6px 0 rgba(207,207,207,0.6);
+}
