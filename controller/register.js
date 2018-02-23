@@ -24,19 +24,23 @@ async function userRegister(ctx) {
 
     await addUser.save((err) => {
       if (err) {
-        ctx.body = res;
+        Object.defineProperty(ctx, 'body', { value: res });
       } else {
-        ctx.body = {
-          flag: true,
-          msg: resultMsg.REGISTER_SUCCESS,
-        };
+        Object.defineProperty(ctx, 'body', {
+          value: {
+            flag: true,
+            msg: resultMsg.REGISTER_SUCCESS,
+          },
+        });
       }
     });
   } else {
-    ctx.body = {
-      ...res,
-      msg: resultMsg.REGISTER_USER_EXISTED,
-    };
+    Object.defineProperty(ctx, 'body', {
+      value: {
+        ...res,
+        msg: resultMsg.REGISTER_USER_EXISTED,
+      },
+    });
   }
 }
 
