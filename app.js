@@ -22,12 +22,24 @@ app.use(convert(logger()));
 app.use(bodyParser());
 
 // load static sources
-app.use(convert(staticSources(path.join(__dirname, './public'))));
+app.use(convert(staticSources(path.join(__dirname, './dist'))));
 
 
 // -------- DB CONFIG --------
 mongoose.Promise = global.Promise;
 mongoose.connect(config.db_url);
+// connect mongodb successfully
+mongoose.connection.on('connected', () => {
+  console.log(`mongodb has connected to ${config.db_url}`);
+});
+// fail to connect
+mongoose.connection.on('error', (err) => {
+  console.log(`failed to connect mongodb\n${err}`);
+});
+// disconnect
+mongoose.connection.on('disconnected', () => {
+  console.log('mongodb has disconnected');
+});
 
 // -------- INIT Routes --------
 // ...
