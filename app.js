@@ -11,6 +11,7 @@ const logger = require('koa-logger');
 const mongoose = require('mongoose');
 
 const config = require('./config/config');
+const routers = require('./routes/index');
 
 const app = new Koa();
 
@@ -42,7 +43,7 @@ mongoose.connection.on('disconnected', () => {
 });
 
 // -------- INIT Routes --------
-// ...
+app.use(routers.routes()).use(routers.allowedMethods());
 
 // -------- START SERVER --------
 app.listen(config.server_port);
