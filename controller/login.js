@@ -19,17 +19,25 @@ async function userLogin(ctx) {
       throw err;
     }
     if (!user) {
-      Object.defineProperty(ctx, 'body', { value: res });
+      ctx.body = res;
+      // Object.defineProperty(ctx, 'body', { value: res });
     } else {
-      Object.defineProperty(ctx, 'body', {
-        value: password === user.password ? {
-          flag: true,
-          msg: resultMsg.LOGIN_SUCCESS,
-        } : {
-          ...res,
-          msg: resultMsg.LOGIN_PASSWD_ERR,
-        },
-      });
+      ctx.body = password === user.password ? {
+        flag: true,
+        msg: resultMsg.REGISTER_SUCCESS,
+      } : {
+        ...res,
+        msg: resultMsg.LOGIN_PASSWD_ERR,
+      };
+      // Object.defineProperty(ctx, 'body', {
+      //   value: password === user.password ? {
+      //     flag: true,
+      //     msg: resultMsg.LOGIN_SUCCESS,
+      //   } : {
+      //     ...res,
+      //     msg: resultMsg.LOGIN_PASSWD_ERR,
+      //   },
+      // });
     }
   });
 }

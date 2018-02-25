@@ -19,6 +19,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  residence: {
+    type: Array,
+    required: true,
+  },
   cellphone: {
     type: String,
     required: true,
