@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, Input, Cascader, Select, Button, AutoComplete } from 'antd';
+import { Form, Input, Cascader, Select, Button, AutoComplete, Message } from 'antd';
+import fetch from 'dva/fetch';
 import styles from './Register.css';
 
 const FormItem = Form.Item;
@@ -35,13 +36,36 @@ class Register extends React.Component {
     confirmDirty: false,
     autoCompleteResult: [],
   };
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
+  getValues() {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.props.form.validateFields((err, values) => {
+        if (!err) {
+          resolve(values);
+        } else {
+          reject(console.error(err));
+        }
+      });
     });
+  }
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    const values = await this.getValues();
+    if (values) {
+      console.log(values);
+      fetch('/api/user/user-register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        body: JSON.stringify(values),
+      }).then((res) => {
+        res.json().then((ress) => {
+          Message.info(ress.msg);
+          if (ress.flag) {
+            location.href = '/login';  // 刷新后出现404 Not Found，是因为使用了browserHistory的缘故，待修改
+          }
+        });
+      });
+    }
   }
   handleConfirmBlur = (e) => {
     const value = e.target.value;
@@ -50,7 +74,7 @@ class Register extends React.Component {
   checkPassword = (rule, value, callback) => {
     const form = this.props.form;
     if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
+      callback('您两次输入的密码不相同，请重新确认!');
     } else {
       callback();
     }
@@ -186,7 +210,7 @@ class Register extends React.Component {
             {...formItemLayout}
             label="手机号码"
           >
-            {getFieldDecorator('phone', {
+            {getFieldDecorator('cellphone', {
               rules: [{ required: true, message: '请输入您的手机号码!' }],
             })(
               <Input addonBefore={prefixSelector} style={{ width: '100%' }} />,
