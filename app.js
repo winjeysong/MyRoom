@@ -6,7 +6,7 @@ const path = require('path');
 const Koa = require('koa');
 const convert = require('koa-convert');
 const bodyParser = require('koa-bodyparser');
-const staticSources = require('koa-static');
+const serve = require('koa-static');
 const logger = require('koa-logger');
 const mongoose = require('mongoose');
 
@@ -23,7 +23,7 @@ app.use(convert(logger()));
 app.use(bodyParser());
 
 // load static sources
-app.use(convert(staticSources(path.join(__dirname, './dist'))));
+app.use(convert(serve(path.join(__dirname, './dist'))));
 
 
 // -------- DB CONFIG --------
