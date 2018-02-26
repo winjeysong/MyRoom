@@ -6,6 +6,7 @@
       "ie>=8"
     ]
   },
+  "hash": true,
   "env": {
     "development": {
       "extraBabelPlugins": [
