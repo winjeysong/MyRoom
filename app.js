@@ -23,8 +23,7 @@ app.use(convert(logger()));
 app.use(bodyParser());
 
 // load static sources
-app.use(convert(serve(path.join(__dirname, './dist'))));
-
+app.use(convert(serve(path.join(__dirname, config.build_path))));
 
 // -------- DB CONFIG --------
 mongoose.Promise = global.Promise;
