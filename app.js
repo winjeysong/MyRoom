@@ -14,6 +14,7 @@ const config = require('./config/config');
 const routers = require('./routes/index');
 
 const app = new Koa();
+const style = config.log_style;
 
 // -------- MIDDLEWARES CONFIG --------
 // log
@@ -30,15 +31,15 @@ mongoose.Promise = global.Promise;
 mongoose.connect(config.db_url);
 // connect mongodb successfully
 mongoose.connection.on('connected', () => {
-  console.log(`mongodb has connected to ${config.db_url}`);
+  console.log(style.info(`${style.success('[SUCCESS]')} MongoDB has connected to ${style.em(config.db_url)}.`));
 });
 // fail to connect
 mongoose.connection.on('error', (err) => {
-  console.log(`failed to connect mongodb\n${err}`);
+  console.log(`${style.error('[ERROR] Failed to connect MongoDB')}.\n${err}`);
 });
 // disconnect
 mongoose.connection.on('disconnected', () => {
-  console.log('mongodb has disconnected');
+  console.log(style.warn('[WARN] MongoDB has disconnected.'));
 });
 
 // -------- INIT Routes --------
@@ -46,4 +47,5 @@ app.use(routers.routes()).use(routers.allowedMethods());
 
 // -------- START SERVER --------
 app.listen(config.server_port);
-console.log(`server is listening on ${config.server_port}`);
+console.log(style.info(`${style.success('[SUCCESS]')} Server is listening on ${style.em(config.server_port)}.`));
+
