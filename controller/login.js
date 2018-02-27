@@ -24,7 +24,7 @@ async function userLogin(ctx) {
     } else {
       ctx.body = password === user.password ? {
         flag: true,
-        msg: resultMsg.REGISTER_SUCCESS,
+        msg: resultMsg.LOGIN_SUCCESS,
       } : {
         ...res,
         msg: resultMsg.LOGIN_PASSWD_ERR,
