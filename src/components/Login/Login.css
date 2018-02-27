@@ -12,11 +12,6 @@
   width: 100%;
 }
 
-.regist-wrapper {
-  float: right;
-  padding-right: 2px !important;
-}
-
 :global(.ant-form-item:last-child) {
   margin-bottom: 0;
 }

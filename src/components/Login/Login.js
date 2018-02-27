@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Icon, Input, Button, Checkbox, Message } from 'antd';
 import fetch from 'dva/fetch';
-import { Link } from 'dva/router';
 import styles from './Login.css';
 
 const FormItem = Form.Item;
@@ -66,7 +65,6 @@ class Login extends React.Component {
             })(
               <Checkbox>记住密码</Checkbox>,
             )}
-            <span className={styles['regist-wrapper']}>没有账号？<Link to="/register">点击注册!</Link></span>
             <Button type="primary" htmlType="submit" className={styles['login-btn']}>
               登录
             </Button>

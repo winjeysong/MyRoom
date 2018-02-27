@@ -23,7 +23,7 @@ function LayoutWrapper({ content }) {
       <Content style={{ padding: '0 50px' }}>
         <div style={{ padding: '100px 24px 100px' }}>{content}</div>
       </Content>
-      <Footer style={{ textAlign: 'center', backgroundColor: '#aeaeae', color: '#ffffffcd', fontWeight: '200', height: 280 }}>
+      <Footer style={{ textAlign: 'center', backgroundColor: '#404040', color: '#ffffffcd', fontWeight: '200', height: '22%' }}>
         <FooterMsg />
       </Footer>
     </Layout>
