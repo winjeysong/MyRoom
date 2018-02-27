@@ -1,0 +1,146 @@
+
+.normal {
+  height: 100%;
+  font-family: Georgia, sans-serif;
+  text-align: center;
+}
+
+.background-img {
+  background: url('../../assets/index_bg.jpg') no-repeat;
+}
+
+.background {
+  min-width: 375px;
+  height: 100%;
+  composes: background-img;
+  background-size: 120%;
+  background-position: 50% 50%;
+  transition: all .3s ease-out;
+}
+
+.blank-wrapper {
+  float: right;
+  height: 100%;
+  width: 40%;
+  background-color: #f7f7f7;
+  box-shadow: 4px 0 10px rgba(207,207,207,0.8) inset;
+  transition: all .2s ease-out;
+}
+
+.title {
+  margin-top: 2em;
+  font-size: 2.5rem;
+  font-weight: normal;
+  letter-spacing: -1px;
+  transition: all .3s ease-out;
+}
+
+.list {
+  display: inline-block;
+  font-size: 1.2em;
+  margin: 1.8em auto;
+  list-style: none;
+  line-height: 2.5em;
+}
+.list > li {
+  text-align: left;
+}
+
+.link-wrapper {
+  margin-top: 26%;
+}
+
+.button {
+  display: inline-block;
+  border-radius: 6px;
+  font-weight: unset;
+  font-size: 16px;
+  padding: 12px 70px;
+  height: 50px;
+}
+
+.button-primary {
+  composes: button;
+  color: #ffffff;
+  background-color: #4caf50;
+}
+
+.button-primary:hover,
+.button-primary:active,
+.button-primary:focus{
+  color: #4caf50;
+  background-color: #ffffff;
+  border: 2px solid #4caf50;
+}
+
+.footer {
+  padding-top: 20px;
+  color: #ffffffcd;
+  position: absolute;
+  bottom: 0;
+  width: 40%;
+  height: 25%;
+  background-color: #4caf50;
+}
+
+@media screen and (max-width: 1198px) {
+  .background {
+    background-position: 50% 50%;
+    background-size: 150%;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .title {
+    font-size: 2.35em;
+  }
+  .list {
+    font-size: 1em;
+  }
+  .button {
+    font-size: 14px;
+    padding: 8px 50px;
+    height: 40px;
+  }
+  .link-wrapper {
+    margin-top: 35%;
+  }
+  .background {
+    background-position: 50% 50%;
+    background-size: 190%;
+  }
+}
+
+@media screen and (max-aspect-ratio: 3/4) and (max-width: 1024px) {
+  .blank-wrapper {
+    float: none;
+    height: unset;
+    display: inline-block;
+    margin: 30% auto;
+    width: 100%;
+    background-color: #f7f7f7;
+    box-shadow: 0 6px 12px rgba(207,207,207,0.8) inset;
+  }
+  .link-wrapper {
+    margin-top: 5%;
+  }
+  .background {
+    background-position: 30% 20%;
+    background-size: 320%;
+  }
+  .footer {
+    display: none;
+  }
+}
+
+@media screen and (max-height: 740px) and (min-aspect-ratio: 4/3) {
+  .footer {
+    display: none;
+  }
+}
+
+@media screnn and (max-height: 560px) and (min-aspect-ratio: 4/3) {
+  .link-wrapper {
+    margin-top: 10%;
+  }
+}
