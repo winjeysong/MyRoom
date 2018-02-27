@@ -61,7 +61,9 @@ class Register extends React.Component {
         res.json().then((ress) => {
           Message.info(ress.msg);
           if (ress.flag) {
-            location.href = '/login';  // 刷新后出现404 Not Found，是因为使用了browserHistory的缘故，待修改
+            setTimeout(() => {
+              location.href = '/login';
+            }, 1000);
           }
         });
       });

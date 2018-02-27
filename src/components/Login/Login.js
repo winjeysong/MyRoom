@@ -32,7 +32,9 @@ class Login extends React.Component {
         res.json().then((ress) => {
           Message.info(ress.msg);
           if (ress.flag) {
-            location.href = '/';
+            setTimeout(() => {
+              location.href = '/';
+            }, 1000);
           }
         });
       });
