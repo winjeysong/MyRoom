@@ -1,3 +1,7 @@
+.normal {
+  font-family: Georgia, serif;
+}
+
 .footer-wrapper {
   margin: 0 auto;
   border: 6px solid #fff; 
@@ -29,7 +33,3 @@
 .footer-link:hover .footer-icon{
   transform: rotate(360deg) scale(0);
 }
-
-
-
-

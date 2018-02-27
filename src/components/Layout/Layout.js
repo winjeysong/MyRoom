@@ -1,12 +1,12 @@
 import React from 'react';
-import { Layout, Menu, Icon } from 'antd';
-import styles from './Layout.css';
+import { Layout, Menu } from 'antd';
+import FooterMsg from '../../components/FooterMsg/FooterMsg';
 
 const { Header, Content, Footer } = Layout;
 
 function LayoutWrapper({ content }) {
   return (
-    <Layout className="layout" style={{ backgroundColor: '#f8f8f8', minHeight: 800 }}>
+    <Layout className="layout" style={{ backgroundColor: '#f8f8f8', height: '100%' }}>
       <Header>
         <div className="logo" />
         <Menu
@@ -21,17 +21,10 @@ function LayoutWrapper({ content }) {
         </Menu>
       </Header>
       <Content style={{ padding: '0 50px' }}>
-        <div style={{ padding: '100px 24px 300px' }}>{content}</div>
+        <div style={{ padding: '100px 24px 100px' }}>{content}</div>
       </Content>
       <Footer style={{ textAlign: 'center', backgroundColor: '#aeaeae', color: '#ffffffcd', fontWeight: '200', height: 280 }}>
-        <div className={styles['footer-wrapper']}>
-          Developed with <br />
-          <a href="http://2x.ant.design/index-cn" className={styles['footer-link']}><Icon className={styles['footer-icon']} type="heart" /> ANTD</a><br />
-          <a href="https://github.com/dvajs/dva" className={styles['footer-link']}><Icon className={styles['footer-icon']} type="heart" /> DVA</a><br />
-          <a href="http://expressjs.com/" className={styles['footer-link']}><Icon className={styles['footer-icon']} type="heart" /> EXPRESS</a><br />
-          <a href="http://mongoosejs.com/" className={styles['footer-link']}><Icon className={styles['footer-icon']} type="heart" /> MONGOOSE</a>
-        </div>
-       a demo of @winjeysong
+        <FooterMsg />
       </Footer>
     </Layout>
   );
