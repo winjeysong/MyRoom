@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Icon, Input, Button, Checkbox, Message } from 'antd';
 import fetch from 'dva/fetch';
 import styles from './Login.css';
+import { resultMsg as MSG } from '../../../controller/const';
 
 const FormItem = Form.Item;
 
@@ -33,6 +34,10 @@ class Login extends React.Component {
           if (ress.flag) {
             setTimeout(() => {
               location.href = '/';
+            }, 1000);
+          } else if (ress.msg === MSG.LOGIN_USER_NOT_EXISTENCE) {
+            setTimeout(() => {
+              location.href = '/register';
             }, 1000);
           }
         });
