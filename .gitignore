@@ -59,3 +59,6 @@ typings/
 
 # production output
 dist/
+
+# Mac
+.DS_Store
