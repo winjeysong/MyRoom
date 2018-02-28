@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'dva';
 import Login from '../components/Login/Login';
-import Layout from '../components/Layout/Layout';
+import BlurLayout from '../components/Layout/BlurLayout';
 
 function LoginPage() {
   const content = <Login />;
   return (
-    <Layout content={content} />
+    <BlurLayout content={content} />
   );
 }
 

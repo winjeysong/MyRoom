@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'dva';
 import Register from '../components/Register/Register';
-import Layout from '../components/Layout/Layout';
+import BlurLayout from '../components/Layout/BlurLayout';
 
 function RegisterPage() {
   const content = <Register />;
   return (
-    <Layout content={content} />
+    <BlurLayout content={content} />
   );
 }
 
