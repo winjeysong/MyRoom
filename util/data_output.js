@@ -1,7 +1,7 @@
 const co = require('co');
 const mongoose = require('mongoose');
 const fs = require('fs');
-const User = require('./models/user');
+const User = require('../models/user');
 
 const outputPath = './dist/data_output.json';
 
