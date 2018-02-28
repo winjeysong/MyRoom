@@ -1,10 +1,24 @@
 .register-wrapper {
   width: 60%;
-  min-width: 550px;
+  min-width: 300px;
   max-width: 800px;
+  max-height: 480px;
+  overflow: auto;
   margin: 0 auto;
   composes: global-box-style from global;
-  position: relative;
-  top: 5%;
+  transition: all .3s ease-out;
 }
 
+@media screen and (max-height: 760px) and (max-aspect-ratio: 3/4) {
+  .register-wrapper {
+    margin-top: -20%;
+    max-height: 450px;
+  }
+}
+
+@media screen and (max-height: 600px) {
+  .register-wrapper {
+    margin-top: 0;
+    max-height: 260px;
+  }
+}

@@ -205,7 +205,7 @@ class Register extends React.Component {
               initialValue: ['zhejiang', 'hangzhou', 'xihu'],
               rules: [{ type: 'array', required: true, message: '请选择您的所在地!' }],
             })(
-              <Cascader options={residences} />,
+              <Cascader options={residences} placeholder="" />,
             )}
           </FormItem>
           <FormItem
