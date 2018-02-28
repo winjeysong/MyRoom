@@ -1,6 +1,7 @@
 
 .normal {
   height: 100%;
+  min-height: 375px;
   font-family: Georgia, sans-serif;
   text-align: center;
 }
@@ -10,7 +11,6 @@
 }
 
 .background {
-  min-width: 375px;
   height: 100%;
   composes: background-img;
   background-size: 120%;
@@ -48,6 +48,7 @@
 
 .link-wrapper {
   margin-top: 26%;
+  transition: all .3s ease-out;
 }
 
 .button {
@@ -126,10 +127,17 @@
   }
   .background {
     background-position: 30% 20%;
-    background-size: 320%;
+    background-size: 200%;
   }
   .footer {
     display: none;
+  }
+}
+
+@media screen and (max-aspect-ratio: 3/4) and (max-width: 760px) {
+  .background {
+    background-position: 30% 20%;
+    background-size: 325%;
   }
 }
 
