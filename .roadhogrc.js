@@ -1,4 +1,6 @@
-{
+const { dev } = require('./config/config');
+
+module.exports = {
   "entry": "./src/index.js",
   "autoprefixer": {
     "browsers": [
@@ -14,7 +16,12 @@
         "dva-hmr",
         "transform-runtime",
         ["import", { "libraryName": "antd", "style": true }]
-      ]
+      ],
+      "proxy": {
+        "/api": `http://localhost:${dev.server_port}/`,
+        "changeOrigin": true,
+        "pathRewrite": { "^/api": ""}
+      }
     },
     "production": {
       "extraBabelPlugins": [
@@ -22,5 +29,5 @@
         ["import", { "libraryName": "antd", "style": true }]
       ]
     }
-  }
+  },
 }

@@ -7,6 +7,10 @@ const chalk = require('chalk');
 module.exports = {
   db_url: 'mongodb://localhost:27017/logindemo',
   server_port: 3333,
+  dev: {
+    db_url: 'mongodb://localhost:27017/logindemo-dev',
+    server_port: 3334,
+  },
   build_path: './dist',
   build_filename: 't',
   log_style: {

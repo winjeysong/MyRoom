@@ -5,7 +5,9 @@
     "build": "roadhog build",
     "lint": "eslint --ext .js src test",
     "precommit": "npm run lint",
-    "modify": "node util/index"
+    "modify": "node util/index",
+    "devserver": "NODE_ENV=development node app",
+    "server": "NODE_ENV=production node app"
   },
   "engines": {
     "install-node": "6.11.1"
