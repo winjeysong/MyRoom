@@ -12,7 +12,7 @@ class UserInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      info: [],
+      info: {},
     };
   }
 
@@ -49,18 +49,15 @@ class UserInfo extends React.Component {
     if (this.isUnmounted || id !== this.props.id) {
       return;
     }
-    const arrInfo = [];
-    arrInfo.push(data);
-    this.setState({ info: arrInfo });
+    this.setState({ info: data });
   }
 
   render() {
     const list = [];
     const { info } = this.state;
-
-    for (const key in info[0]) {
+    for (const key in info) {
       if (key !== '_id') {
-        list.push(<li className={styles.list} key={key}>{`${key}: ${info[0][key]}`}</li>);
+        list.push(<li className={styles.list} key={key}>{`${key}: ${info[key]}`}</li>);
       }
     }
 
