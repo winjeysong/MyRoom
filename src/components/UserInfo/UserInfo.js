@@ -7,6 +7,7 @@ import React from 'react';
 import fetch from 'dva/fetch';
 import propTypes from 'prop-types';
 import styles from './UserInfo.css';
+import InfoWrapper from '../InfoWrapper/InfoWrapper';
 
 class UserInfo extends React.Component {
   constructor(props) {
@@ -63,9 +64,7 @@ class UserInfo extends React.Component {
 
     return (
       <div className={styles.normal}>
-        <div>
-          {list}
-        </div>
+        <InfoWrapper info={info} />
       </div>
     );
   }

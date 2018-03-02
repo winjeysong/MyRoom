@@ -1,0 +1,15 @@
+
+.normal {
+}
+
+.card {
+  min-width: 350px;
+  min-height: 350px;
+  margin: 2em 0;
+}
+
+.list {
+  font-size: 1.2em;
+  list-style: none;
+  line-height: 1.5em;
+}
