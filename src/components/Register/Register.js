@@ -8,25 +8,25 @@ const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
 const residences = [{
-  value: 'zhejiang',
-  label: 'Zhejiang',
+  value: '浙江',
+  label: '浙江',
   children: [{
-    value: 'hangzhou',
-    label: 'Hangzhou',
+    value: '杭州',
+    label: '杭州',
     children: [{
-      value: 'xihu',
-      label: 'West Lake',
+      value: '西湖区',
+      label: '西湖区',
     }],
   }],
 }, {
-  value: 'jiangsu',
-  label: 'Jiangsu',
+  value: '江苏',
+  label: '江苏',
   children: [{
-    value: 'nanjing',
-    label: 'Nanjing',
+    value: '南京',
+    label: '南京',
     children: [{
-      value: 'zhonghuamen',
-      label: 'Zhong Hua Men',
+      value: '玄武区',
+      label: '玄武区',
     }],
   }],
 }];
@@ -202,7 +202,7 @@ class Register extends React.Component {
             label="所在地"
           >
             {getFieldDecorator('residence', {
-              initialValue: ['zhejiang', 'hangzhou', 'xihu'],
+              initialValue: ['浙江', '杭州', '西湖区'],
               rules: [{ type: 'array', required: true, message: '请选择您的所在地!' }],
             })(
               <Cascader options={residences} placeholder="" />,
