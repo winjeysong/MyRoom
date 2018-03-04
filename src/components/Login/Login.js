@@ -33,7 +33,7 @@ class Login extends React.Component {
           Message.info(ress.msg);
           if (ress.flag) {
             setTimeout(() => {
-              location.href = '/';
+              location.href = `/usercenter/${ress.id}`;
             }, 1000);
           } else if (ress.msg === MSG.LOGIN_USER_NOT_EXISTENCE) {
             setTimeout(() => {

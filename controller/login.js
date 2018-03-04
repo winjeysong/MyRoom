@@ -25,6 +25,7 @@ async function userLogin(ctx) {
       ctx.body = password === user.password ? {
         flag: true,
         msg: resultMsg.LOGIN_SUCCESS,
+        id: user._id,
       } : {
         ...res,
         msg: resultMsg.LOGIN_PASSWD_ERR,
