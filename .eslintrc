@@ -3,7 +3,8 @@
   "extends": "airbnb",
   "globals": {
     "location": true,
-    "navigator": true
+    "navigator": true,
+    "localStorage": true
   },
   "rules": {
     "arrow-body-style": [0],

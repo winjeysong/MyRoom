@@ -1,29 +1,31 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
+import { Link } from 'dva/router';
 import FooterMsg from '../../components/FooterMsg/FooterMsg';
 
 const { Header, Content, Footer } = Layout;
 
-function LayoutWrapper({ content }) {
+function LayoutWrapper({ content, location }) {
+  const pathname = /(\/\w+)/i.exec(location.pathname); // match '/usercenter' or '/about', ant etc.
+  const id = localStorage.getItem('id'); // get user id (the same as mongdb built-in _id) stored locally
   return (
-    <Layout className="layout" style={{ backgroundColor: '#f8f8f8', height: '100%' }}>
+    <Layout className="layout" style={{ backgroundColor: '#f8f8f8', height: '100%', minHeight: 600 }}>
       <Header>
         <div className="logo" />
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={['2']}
+          selectedKeys={[pathname[1]]}
           style={{ lineHeight: '64px' }}
         >
-          <Menu.Item key="1">nav 1</Menu.Item>
-          <Menu.Item key="2">nav 2</Menu.Item>
-          <Menu.Item key="3">nav 3</Menu.Item>
+          <Menu.Item key="/usercenter"><Link to={`/usercenter/${id}`}>个人中心</Link></Menu.Item>
+          <Menu.Item key="/about"><Link to="/about">关于</Link></Menu.Item>
         </Menu>
       </Header>
-      <Content style={{ padding: '0 50px' }}>
-        <div style={{ padding: '100px 24px 100px' }}>{content}</div>
+      <Content style={{ padding: '20px 50px', backgroundColor: '#efefef' }}>
+        <div>{content}</div>
       </Content>
-      <Footer style={{ textAlign: 'center', backgroundColor: '#404040', color: '#ffffffcd', fontWeight: '200', height: '22%' }}>
+      <Footer style={{ textAlign: 'center', backgroundColor: '#404040', color: '#ffffffcd', fontWeight: '200', height: 200 }}>
         <FooterMsg />
       </Footer>
     </Layout>

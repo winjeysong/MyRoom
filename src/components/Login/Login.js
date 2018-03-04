@@ -32,6 +32,7 @@ class Login extends React.Component {
         res.json().then((ress) => {
           Message.info(ress.msg);
           if (ress.flag) {
+            localStorage.setItem('id', ress.id); // store user id locally, use it to switch the menu item.
             setTimeout(() => {
               location.href = `/usercenter/${ress.id}`;
             }, 1000);
