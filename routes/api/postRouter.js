@@ -6,6 +6,6 @@ const router = require('koa-router')();
 const userOperation = require('../../controller/index');
 
 const routers = router
-  .post('/', userOperation.postSave);
+  .post('/add', userOperation.postSave);
 
 module.exports = routers;

@@ -23,7 +23,7 @@ class UserPost extends React.Component {
     e.preventDefault();
     const values = await this.getValues();
     if (values) {
-      fetch('/api/post', {
+      fetch('/api/post/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
         body: JSON.stringify({
