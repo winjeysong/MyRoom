@@ -54,14 +54,7 @@ class UserInfo extends React.Component {
   }
 
   render() {
-    const list = [];
     const { info } = this.state;
-    for (const key in info) {
-      if (key !== '_id') {
-        list.push(<li className={styles.list} key={key}>{`${key}: ${info[key]}`}</li>);
-      }
-    }
-
     return (
       <div className={styles.normal}>
         <InfoWrapper info={info} />
