@@ -29,7 +29,8 @@
     "react/prop-types": [0],
     "require-yield": [1],
     "no-param-reassign": "warn",
-    "camelcase": "warn"
+    "camelcase": "warn",
+    "no-underscore-dangle": "warn"
   },
   "parserOptions": {
     "ecmaFeatures": {
