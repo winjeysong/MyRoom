@@ -1,29 +1,12 @@
 import React from 'react';
 import { Icon, Card, Row, Col } from 'antd';
-import marked from 'marked';
-import highlight from 'highlight.js';
+import Article from '../Article/Article';
 import styles from './InfoWrapper.css';
-
-highlight.configure({
-  tabReplace: '  ',
-  classPrefix: 'hljs-',
-  languages: ['CSS', 'HTML, XML', 'JavaScript', 'PHP', 'Python', 'Stylus', 'TypeScript', 'Markdown'],
-});
-
-marked.setOptions({
-  highlight(code) {
-    return highlight.highlightAuto(code).value;
-  },
-  sanitize: true,
-});
 
 function InfoWrapper({ info, posts }) {
   const postsList = posts.map((post, index) => {
     return (
-      <Card key={index} title={post.title} bordered={false} className={styles['post-card']}>
-        <div className={styles['post-date']}>{post.date}</div>
-        <div className={styles['post-content']}>{<div dangerouslySetInnerHTML={{ __html: marked(post.content) }} />}</div>
-      </Card>
+      <Article key={index} title={post.title} date={post.date} content={post.content} />
     );
   });
 
