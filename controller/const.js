@@ -11,4 +11,7 @@ module.exports = {
     LOGIN_SUCCESS: '登陆成功',
     LOGIN_PASSWD_ERR: '密码错误，请重新输入',
   },
+  postMsg: {
+    POSTS_SAVE_SUCCESS: '文章保存成功',
+  },
 };

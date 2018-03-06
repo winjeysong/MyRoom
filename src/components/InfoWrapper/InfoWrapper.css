@@ -3,13 +3,52 @@
 }
 
 .card {
-  min-width: 350px;
-  min-height: 350px;
+  min-width: 400px;
   margin: 2em 0;
+  padding: 12px 20px;
+}
+
+.post-card {
+  composes: card;
+}
+
+.post-content {
+  max-height: 300px;
+  line-height: 2em;
+  display: inline-block;
+  margin: 2px 0;
+  composes: global-line-limit-length from global;
+}
+
+:global(.ant-card-head-title) {
+  font-size: 18px;
+  font-weight: normal;
+}
+
+:global(.ant-card-body) {
+  font-size: 14px;
+}
+
+.list-wrapper {
+  margin: 0, auto;
 }
 
 .list {
-  font-size: 1.2em;
   list-style: none;
-  line-height: 1.5em;
+  line-height: 2.5em;
+}
+
+.info-key {
+  font-size: 1.25em;
+  letter-spacing: 1px;
+  display: inline-block;
+  width: 110px;
+  text-align: right;
+}
+
+.info-value {
+  font-size: 1.25em;
+  display: inline-block;
+  margin-left: 1.2em;
+  width: max-content;
 }

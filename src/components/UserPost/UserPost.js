@@ -1,12 +1,45 @@
 import React from 'react';
-import { Form, Input, Icon, Card, Button, Message } from 'antd';
+import marked from 'marked';
+import highlight from 'highlight.js';
+import { Form, Input, Icon, Card, Button, Message, Row, Col } from 'antd';
 import fetch from 'dva/fetch';
-import styles from './UserPost.css';
+import styles from './UserPost.less';
 
 const FormItem = Form.Item;
 const TextArea = Input.TextArea;
 
+highlight.configure({
+  tabReplace: '  ',
+  classPrefix: 'hljs-',
+  languages: ['CSS', 'HTML, XML', 'JavaScript', 'PHP', 'Python', 'Stylus', 'TypeScript', 'Markdown'],
+});
+
+marked.setOptions({
+  highlight(code) {
+    return highlight.highlightAuto(code).value;
+  },
+  sanitize: true,
+});
+
 class UserPost extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      preview: '',
+    };
+    this.onContentInput = this.onContentInput.bind(this);
+  }
+
+  componentDidMount() {
+    highlight.initHighlighting();
+  }
+
+  onContentInput(e) {
+    this.setState({
+      preview: marked(e.target.value),
+    });
+  }
+
   getValues() {
     const self = this;
     return new Promise((resolve, reject) => {
@@ -19,6 +52,7 @@ class UserPost extends React.Component {
       });
     });
   }
+
   handleSubmit = async (e) => {
     e.preventDefault();
     const values = await this.getValues();
@@ -47,29 +81,43 @@ class UserPost extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <div className={styles.normal}>
-        <Card style={{ width: '75%', margin: '20px auto' }}>
-          <Form onSubmit={this.handleSubmit}>
-            <FormItem>
-              {getFieldDecorator('title', {
-                rules: [{ required: true, message: '请输入文章标题!' }],
-              })(
-                <Input prefix={<Icon type="edit" style={{ fontSize: 13 }} />} placeholder="标题" />,
-              )}
-            </FormItem>
-            <FormItem>
-              {getFieldDecorator('content', {
-                rules: [{ required: true, message: '请输入文章内容!' }],
-              })(
-                <TextArea placeholder="开始记录吧..." autosize={{ minRows: 18 }} />,
-              )}
-            </FormItem>
-            <FormItem>
-              <Button type="primary" htmlType="submit">
-                保存
-              </Button>
-            </FormItem>
-          </Form>
-        </Card>
+        <Row>
+          <Col xs={24} md={{ span: 12, offset: 1 }}>
+            <h2>愉快地支持Markdown语法，及代码高亮。</h2>
+          </Col>
+        </Row>
+        <Row gutter={32}>
+          <Col xs={24} md={{ span: 12, offset: 1 }}>
+            <Card className={styles.card}>
+              <Form onSubmit={this.handleSubmit}>
+                <FormItem>
+                  {getFieldDecorator('title', {
+                    rules: [{ required: true, message: '请输入文章标题!' }],
+                  })(
+                    <Input prefix={<Icon type="edit" style={{ fontSize: 14 }} />} placeholder="标题" />,
+                  )}
+                </FormItem>
+                <FormItem>
+                  {getFieldDecorator('content', {
+                    rules: [{ required: true, message: '请输入文章内容!' }],
+                  })(
+                    <TextArea placeholder="开始记录吧..." autosize={{ minRows: 18 }} onInput={this.onContentInput} />,
+                  )}
+                </FormItem>
+                <FormItem style={{ textAlign: 'right' }}>
+                  <Button type="primary" htmlType="submit">
+                    保存
+                  </Button>
+                </FormItem>
+              </Form>
+            </Card>
+          </Col>
+          <Col xs={24} md={10}>
+            <Card className={styles.card} title="实时预览">
+              <div dangerouslySetInnerHTML={{ __html: this.state.preview || '在文本框内输入，在这里预览结果...' }} />
+            </Card>
+          </Col>
+        </Row>
       </div>
     );
   }
