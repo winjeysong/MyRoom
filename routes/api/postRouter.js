@@ -7,6 +7,7 @@ const userOperation = require('../../controller/index');
 
 const routers = router
   .post('/add', userOperation.postSave)
-  .post('/search/:id', userOperation.postGet);
+  .post('/search/:id', userOperation.postsGet)
+  .post('/show/:postid', userOperation.postShow);
 
 module.exports = routers;

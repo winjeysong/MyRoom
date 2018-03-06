@@ -28,7 +28,7 @@ async function postSave(ctx) {
   }
 }
 
-async function postGet(ctx) {
+async function postsGet(ctx) {
   const id = ctx.params.id;
   // get all posts of one author(=user._id).
   await Post.find({ author: id }, (err, posts) => {
@@ -36,7 +36,17 @@ async function postGet(ctx) {
   });
 }
 
+async function postShow(ctx) {
+  const postId = ctx.params.postid;
+  const select = 'title date content';
+  await Post.findById(postId, select, (err, post) => {
+    console.log(post);
+    ctx.body = post;
+  });
+}
+
 module.exports = {
   postSave,
-  postGet,
+  postsGet,
+  postShow,
 };

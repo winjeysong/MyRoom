@@ -6,6 +6,7 @@ import RegisterPage from './routes/RegisterPage.js';
 import UserCenter from './routes/UserCenter.js';
 import AboutPage from './routes/AboutPage.js';
 import UserPost from './routes/UserPost.js';
+import ArticlePage from './routes/ArticlePage.js';
 
 function RouterConfig({ history }) {
   return (
@@ -17,6 +18,7 @@ function RouterConfig({ history }) {
         <Route exact path="/UserCenter/:id" component={UserCenter} />
         <Route exact path="/About" component={AboutPage} />
         <Route exact path="/UserPost" component={UserPost} />
+        <Route exact path="/Article/:postid" component={ArticlePage} />
       </Switch>
     </Router>
   );

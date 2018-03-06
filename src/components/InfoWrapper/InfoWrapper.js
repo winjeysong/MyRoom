@@ -1,12 +1,13 @@
 import React from 'react';
 import { Icon, Card, Row, Col } from 'antd';
+import { Link } from 'dva/router';
 import Article from '../Article/Article';
 import styles from './InfoWrapper.css';
 
 function InfoWrapper({ info, posts }) {
   const postsList = posts.map((post, index) => {
     return (
-      <Article key={index} title={post.title} date={post.date} content={post.content} />
+      <Link to={`/article/${post._id}`} key={index} style={{ color: 'rgba(0, 0, 0, 0.85)' }}><Article title={post.title} date={post.date} content={post.content} /></Link>
     );
   });
 
