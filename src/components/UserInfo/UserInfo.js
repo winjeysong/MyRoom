@@ -4,60 +4,48 @@
  */
 
 import React from 'react';
-import fetch from 'dva/fetch';
 import propTypes from 'prop-types';
+import axios from 'axios';
 import styles from './UserInfo.css';
 import InfoWrapper from '../InfoWrapper/InfoWrapper';
 
 class UserInfo extends React.Component {
+  static fetchPost(id) {
+    return axios.post(`/api/post/search/${id}`, { timeout: 1000 });
+  }
+
+  static fetchInfo(id) {
+    return axios.post(`/api/user/id/${id}`, { timeout: 1000 });
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       info: {},
+      posts: [],
     };
   }
 
   componentDidMount() {
-    this.fetchInfo(this.props.id);
+    this.fetchAll(this.props.id);
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.id !== prevProps.id) {
-      this.fetchInfo(this.props.id);
-    }
-  }
-
-  componentWillUnmount() {
-    this.isUnmounted = true;
-  }
-
-  fetchInfo(id) {
-    fetch(`/api/user/id/${id}`, {
-      method: 'GET',
-      credentials: 'same-origin',
-    })
-      .then((res) => {
-        if (res.status >= 400) {
-          console.error('Bad response from server');
-        }
-        res.json().then((info) => {
-          this.fetchInfoSuccess(id, info);
+  fetchAll(id) {
+    axios.all([UserInfo.fetchInfo(id), UserInfo.fetchPost(id)])
+      .then(axios.spread((info, posts) => {
+        console.log(posts, info);
+        this.setState({
+          info: info.data,
+          posts: posts.data,
         });
-      });
-  }
-
-  fetchInfoSuccess(id, data) {
-    if (this.isUnmounted || id !== this.props.id) {
-      return;
-    }
-    this.setState({ info: data });
+      }));
   }
 
   render() {
-    const { info } = this.state;
+    const { info, posts } = this.state;
     return (
       <div className={styles.normal}>
-        <InfoWrapper info={info} />
+        <InfoWrapper info={info} posts={posts} />
       </div>
     );
   }
