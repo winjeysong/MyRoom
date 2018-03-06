@@ -5,6 +5,7 @@
 // const User = require('../models/user');
 const Post = require('../models/post');
 const { postMsg } = require('./const');
+const moment = require('moment');
 
 async function postSave(ctx) {
   // get post title, content, and authorId
@@ -15,6 +16,7 @@ async function postSave(ctx) {
     author,
     title: postInfo.title,
     content: postInfo.content,
+    date: moment().format('YYYY-MM-DD HH:mm'),
   });
 
   const newPost = await addPost.save();
