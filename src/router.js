@@ -15,8 +15,8 @@ function RouterConfig({ history }) {
         <Route exact path="/Login" component={LoginPage} />
         <Route exact path="/Register" component={RegisterPage} />
         <Route exact path="/UserCenter/:id" component={UserCenter} />
-        <Route path="/About" component={AboutPage} />
-        <Route path="/UserPost" component={UserPost} />
+        <Route exact path="/About" component={AboutPage} />
+        <Route exact path="/UserPost" component={UserPost} />
       </Switch>
     </Router>
   );
