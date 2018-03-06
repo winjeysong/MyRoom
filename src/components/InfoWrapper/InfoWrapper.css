@@ -20,6 +20,14 @@
   composes: global-line-limit-length from global;
 }
 
+.post-date {
+  font-size: 12px;
+  font-family: Georgia, sans-serif;
+  color: #8e8e8e;
+  position: relative;
+  top: -12px;
+}
+
 :global(.ant-card-head-title) {
   font-size: 18px;
   font-weight: normal;

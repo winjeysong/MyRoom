@@ -21,6 +21,7 @@ function InfoWrapper({ info, posts }) {
   const postsList = posts.map((post, index) => {
     return (
       <Card key={index} title={post.title} bordered={false} className={styles['post-card']}>
+        <div className={styles['post-date']}>{post.date}</div>
         <div className={styles['post-content']}>{<div dangerouslySetInnerHTML={{ __html: marked(post.content) }} />}</div>
       </Card>
     );
