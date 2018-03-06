@@ -10,3 +10,9 @@ html, body, :global(#root) {
   box-shadow: 0 6px 12px 0 rgba(207,207,207,0.8) inset;
   background-color: #fff;
 }
+ 
+:global(.global-line-limit-length){
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-line;
+}
