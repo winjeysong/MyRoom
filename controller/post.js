@@ -40,7 +40,6 @@ async function postShow(ctx) {
   const postId = ctx.params.postid;
   const select = 'title date content';
   await Post.findById(postId, select, (err, post) => {
-    console.log(post);
     ctx.body = post;
   });
 }

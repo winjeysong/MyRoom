@@ -19,6 +19,7 @@ marked.setOptions({
     return highlight.highlightAuto(code).value;
   },
   sanitize: true,
+  breaks: true,
 });
 
 function Article({ title, date, content }) {

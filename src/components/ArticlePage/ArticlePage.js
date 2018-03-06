@@ -16,6 +16,7 @@ marked.setOptions({
     return highlight.highlightAuto(code).value;
   },
   sanitize: true,
+  breaks: true,
 });
 
 class ArticlePage extends React.Component {

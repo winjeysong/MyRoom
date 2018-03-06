@@ -6,8 +6,7 @@
 }
 
 .post-content {
-  max-height: 300px;
-  line-height: 2em;
+  line-height: 1.75;
   display: inline-block;
   margin: 2px 0;
   composes: global-line-limit-length from global;
