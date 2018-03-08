@@ -57,10 +57,14 @@ class UserPost extends React.Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const values = await this.getValues();
+    const token = localStorage.getItem('token');
     if (values) {
       fetch('/api/post/add', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({
           postInfo: values,
           author: localStorage.getItem('id'),

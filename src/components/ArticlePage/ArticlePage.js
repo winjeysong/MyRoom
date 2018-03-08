@@ -19,6 +19,8 @@ marked.setOptions({
   breaks: true,
 });
 
+const token = localStorage.getItem('token');
+
 class ArticlePage extends React.Component {
   constructor(props) {
     super(props);
@@ -33,7 +35,14 @@ class ArticlePage extends React.Component {
   }
 
   fetchPost() {
-    return axios.post(`/api/post/show/${this.props.postId}`, { timeout: 1000 })
+    return axios({
+      method: 'post',
+      url: `/api/post/show/${this.props.postId}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      timeout: 1000,
+    })
     .then((res) => {
       this.setState({
         post: res.data,

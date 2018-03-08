@@ -23,7 +23,6 @@ class Login extends React.Component {
     e.preventDefault();
     const values = await this.getValues();
     if (values) {
-      console.log(values);
       fetch('/api/user/user-login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
@@ -33,6 +32,7 @@ class Login extends React.Component {
           Message.info(ress.msg);
           if (ress.flag) {
             localStorage.setItem('id', ress.id); // store user id locally, use it to switch the menu item.
+            localStorage.setItem('token', ress.token); // store token locally
             setTimeout(() => {
               location.href = `/usercenter/${ress.id}`;
             }, 1000);

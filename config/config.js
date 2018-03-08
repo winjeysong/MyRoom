@@ -20,4 +20,5 @@ module.exports = {
     info: chalk.hex('#EEEEEE'),
     em: chalk.hex('#57CBFA'),
   },
+  jwt_secret: 'logindemo',
 };

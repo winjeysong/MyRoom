@@ -2,17 +2,22 @@
  * user posts
  */
 
-// const User = require('../models/user');
+const moment = require('moment');
+const jwt = require('jwt-then');
+const { jwt_secret } = require('../config/config');
 const Post = require('../models/post');
 const { postMsg } = require('./const');
-const moment = require('moment');
 
 async function postSave(ctx) {
   // get post title, content, and authorId
   const { postInfo, author } = ctx.request.body;
+  const token = ctx.headers.authorization;
+  const payload = await jwt.verify(token.split(' ')[1], jwt_secret); // decode jwt payload
+  // const payload = ctx.state.jwtdata; // decoded payload processed by koa-jwt
 
   await Post.findOne({ author });
   const addPost = new Post({
+    username: payload.name,
     author,
     title: postInfo.title,
     content: postInfo.content,
@@ -29,18 +34,42 @@ async function postSave(ctx) {
 }
 
 async function postsGet(ctx) {
+  const token = ctx.headers.authorization;
+  const payload = await jwt.verify(token.split(' ')[1], jwt_secret); // decode jwt payload
+  // const payload = ctx.state.jwtdata; // decoded payload processed by koa-jwt
   const id = ctx.params.id;
   // get all posts of one author(=user._id).
   await Post.find({ author: id }, (err, posts) => {
-    ctx.body = posts;
+    if (token) {
+      if (posts.length === 0) {
+        ctx.body = [{
+          content: '欢迎来到新家，开始写一篇新文章吧！',
+        }];
+      } else if (payload.name === posts[0].username) {
+        ctx.body = posts;
+      }
+    }
   });
 }
 
 async function postShow(ctx) {
+  const token = ctx.headers.authorization;
+  const payload = await jwt.verify(token.split(' ')[1], jwt_secret); // decode jwt payload
+  // const payload = ctx.state.jwtdata; // decoded payload processed by koa-jwt
   const postId = ctx.params.postid;
-  const select = 'title date content';
+  const select = 'title date content username';
   await Post.findById(postId, select, (err, post) => {
-    ctx.body = post;
+    if (token) {
+      if (payload.name === post.username) {
+        ctx.body = post;
+      }
+    } else {
+      ctx.body = {
+        title: 'No Data.',
+        date: '',
+        content: 'No Data.',
+      };
+    }
   });
 }
 

@@ -9,13 +9,29 @@ import axios from 'axios';
 import styles from './UserInfo.css';
 import InfoWrapper from '../InfoWrapper/InfoWrapper';
 
+const token = localStorage.getItem('token');
+
 class UserInfo extends React.Component {
   static fetchPost(id) {
-    return axios.post(`/api/post/search/${id}`, { timeout: 1000 });
+    return axios({
+      method: 'post',
+      url: `/api/post/search/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      timeout: 1000,
+    });
   }
 
   static fetchInfo(id) {
-    return axios.post(`/api/user/id/${id}`, { timeout: 1000 });
+    return axios({
+      method: 'post',
+      url: `/api/user/id/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      timeout: 1000,
+    });
   }
 
   constructor(props) {
@@ -32,11 +48,10 @@ class UserInfo extends React.Component {
 
   fetchAll(id) {
     axios.all([UserInfo.fetchInfo(id), UserInfo.fetchPost(id)])
-      .then(axios.spread((info, posts) => {
-        console.log(posts, info);
+      .then(axios.spread((infoRes, postsRes) => {
         this.setState({
-          info: info.data,
-          posts: posts.data,
+          info: infoRes.data,
+          posts: postsRes.data,
         });
       }));
   }
