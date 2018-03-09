@@ -2,6 +2,7 @@
  * register
  */
 
+const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const { resultMsg } = require('./const');
 
@@ -12,13 +13,14 @@ async function userRegister(ctx) {
     msg: resultMsg.REGISTER_FAILURE,
   };
 
+  const hash = await bcrypt.hash(password, 10); // hash password with bcrypt
   const user = await User.findOne({ username });
   // check if the username is already exsited
   if (!user) {
     const addUser = new User({
       username,
       email,
-      password,
+      password: hash,
       residence,
       cellphone,
       website,
@@ -33,29 +35,11 @@ async function userRegister(ctx) {
     } else {
       ctx.body = res;
     }
-    // await addUser.save((err) => {
-    //   if (err) {
-    //     Object.defineProperty(ctx, 'body', { value: res });
-    //   } else {
-    //     Object.defineProperty(ctx, 'body', {
-    //       value: {
-    //         flag: true,
-    //         msg: resultMsg.REGISTER_SUCCESS,
-    //       },
-    //     });
-    //   }
-    // });
   } else {
     ctx.body = {
       ...res,
       msg: resultMsg.REGISTER_USER_EXISTED,
     };
-    // Object.defineProperty(ctx, 'body', {
-    //   value: {
-    //     ...res,
-    //     msg: resultMsg.REGISTER_USER_EXISTED,
-    //   },
-    // });
   }
 }
 
