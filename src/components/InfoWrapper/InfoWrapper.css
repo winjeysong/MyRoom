@@ -3,9 +3,9 @@
 }
 
 .card {
-  min-width: 400px;
   margin: 2em 0;
   padding: 12px 20px;
+  white-space: nowrap;
 }
 
 :global(.ant-card-head-title) {
@@ -30,13 +30,18 @@
   font-size: 1.25em;
   letter-spacing: 1px;
   display: inline-block;
-  width: 110px;
+  width: 100px;
   text-align: right;
+  vertical-align: middle;
 }
 
 .info-value {
   font-size: 1.25em;
   display: inline-block;
+  width: 50%;
   margin-left: 1.2em;
-  width: max-content;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

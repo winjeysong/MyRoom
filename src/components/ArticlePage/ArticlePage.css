@@ -1,15 +1,14 @@
 .post-card {
-  min-width: 400px;
   min-height: 400px;
   margin: 2em 0;
   padding: 12px 20px;
 }
 
 .post-content {
+  width: 100%;
   line-height: 1.75;
   display: inline-block;
   margin: 2px 0;
-  composes: global-line-limit-length from global;
 }
 
 .post-date {

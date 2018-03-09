@@ -4,11 +4,15 @@
   overflow: auto;
 }
 
+ul, ol {
+  list-style: inside;
+}
+
 :global {
   pre {
     margin: 0.5em 0;
-    display: block;
     overflow-x: auto;
+    width: 100%;
     padding: 0.5em;
     color: #abb2bf;
     background: #4f4f4f;
@@ -24,10 +28,17 @@
   blockquote {
     margin: 0.5em 0;
     background: #efefef;
-    overflow-x: auto;
     border-left: 6px solid #98c379;
     border-radius: 4px;
-    padding: 0 0.5em;
+    padding: 2px 0.5em;
+  }
+
+  img {
+    border: 1px solid #abb2bf;
+    margin: 0.5em auto;
+    padding: 6px;
+    border-radius: 4px;
+    width: 100%;
   }
   
   /* with atom one dark code highlight style */
