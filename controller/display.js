@@ -13,13 +13,12 @@ async function userDisplay(ctx) {
   // const payload = ctx.state.jwtdata;
   // decoded payload processed by koa-jwt, same as the value above
   const select = 'username email cellphone residence website';
-  await User.findById(id, select, (err, user) => {
-    if (user) {
-      if (id === String(user._id) && payload.name === user.username) {
-        ctx.body = user;
-      }
+  const user = await User.findById(id, select);
+  if (user) {
+    if (id === String(user._id) && payload.name === user.username) {
+      ctx.body = user;
     }
-  });
+  }
 }
 
 module.exports = userDisplay;
