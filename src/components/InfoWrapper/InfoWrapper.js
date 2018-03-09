@@ -5,9 +5,16 @@ import Article from '../Article/Article';
 import styles from './InfoWrapper.css';
 
 function InfoWrapper({ info, posts }) {
-  const postsList = posts.map((post, index) => {
+  const postsList = posts.reverse().map((post, index) => {
+    const linkProps = {
+      to: post._id ? `/article/${post._id}` : '/userpost',
+      key: index,
+      className: styles.link,
+    };
     return (
-      <Link to={post._id ? `/article/${post._id}` : '/userpost'} key={index} style={{ color: 'rgba(0, 0, 0, 0.85)' }}><Article title={post.title} date={post.date} content={post.content} /></Link>
+      <Link {...linkProps}>
+        <Article title={post.title} date={post.date} content={post.content} />
+      </Link>
     );
   });
 

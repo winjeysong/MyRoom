@@ -22,3 +22,7 @@
     max-height: 260px;
   }
 }
+
+.register-wrapper ul {
+  list-style: none;
+}
