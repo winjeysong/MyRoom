@@ -2,12 +2,8 @@
  * @index js
  */
 
-const userRegister = require('./register');
-const userLogin = require('./login');
-const userDisplay = require('./display');
-const post = require('./post');
-
-const { postSave, postsGet, postShow } = post;
+const { userRegister, userLogin, userDisplay } = require('./user');
+const { postSave, postsGet, postShow } = require('./post');
 
 module.exports = {
   userRegister,
