@@ -8,6 +8,7 @@ const userOperation = require('../../controller/index');
 const routers = router
   .post('/user-register', userOperation.userRegister)
   .post('/user-login', userOperation.userLogin)
-  .post('/id/:id', userOperation.userDisplay);
+  .post('/id/:id', userOperation.userDisplay)
+  .post('/update/:id', userOperation.userUpdate);
 
 module.exports = routers;

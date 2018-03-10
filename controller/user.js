@@ -90,8 +90,40 @@ async function userDisplay(ctx) {
   const select = 'username email cellphone residence website';
   const user = await User.findById(id, select);
   if (user) {
-    if (id === String(user._id) && payload.name === user.username) {
+    if (payload.name === user.username) {
       ctx.body = user;
+    }
+  }
+}
+
+async function userUpdate(ctx) {
+  const id = ctx.params.id;
+  const { email, oldpassword, password, residence, cellphone, website } = ctx.request.body;
+  const token = ctx.headers.authorization;
+  const payload = await jwtThen.verify(token.split(' ')[1], jwt_secret); // decode jwt payload
+  const oldUser = await User.findById(id, 'password username');
+  const compare = await bcrypt.compare(oldpassword, oldUser.password);
+  const hash = await bcrypt.hash(password, 10);
+
+  if (payload.name === oldUser.username) {
+    if (compare) {
+      await User.findByIdAndUpdate(id, {
+        email,
+        password: hash,
+        residence,
+        cellphone,
+        website,
+      });
+
+      ctx.body = {
+        flag: true,
+        msg: resultMsg.MODIFY_USER_INFO_SUCCESS,
+      };
+    } else {
+      ctx.body = {
+        flag: false,
+        msg: resultMsg.MODIFY_PASSWD_NOT_EQUAL,
+      };
     }
   }
 }
@@ -100,4 +132,5 @@ module.exports = {
   userRegister,
   userLogin,
   userDisplay,
+  userUpdate,
 };

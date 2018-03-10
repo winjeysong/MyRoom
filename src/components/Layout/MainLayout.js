@@ -26,7 +26,7 @@ function LayoutWrapper({ content, location }) {
               <Menu.Item key="/userpost"><Link to="/userpost"><Icon type="file-add" />新建</Link></Menu.Item>
             </ItemGroup>
             <ItemGroup title="用户">
-              <Menu.Item key="/usermodify"><Link to="/usermodify"><Icon type="edit" />资料修改</Link></Menu.Item>
+              <Menu.Item key="/usermodify"><Link to={`/usermodify/${id}`}><Icon type="edit" />资料修改</Link></Menu.Item>
             </ItemGroup>
           </SubMenu>
           <Menu.Item key="/about"><Link to="/about"><Icon type="info-circle-o" />关于</Link></Menu.Item>
