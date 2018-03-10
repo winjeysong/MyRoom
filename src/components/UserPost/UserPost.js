@@ -93,7 +93,7 @@ class UserPost extends React.Component {
         </Row>
         <Row gutter={32}>
           <Col xs={24} md={{ span: 12, offset: 1 }}>
-            <Card className={styles.card}>
+            <Card bordered={false} className={styles.card}>
               <Form onSubmit={this.handleSubmit}>
                 <FormItem>
                   {getFieldDecorator('title', {
@@ -118,7 +118,7 @@ class UserPost extends React.Component {
             </Card>
           </Col>
           <Col xs={24} md={10}>
-            <Card className={styles.card} title="实时预览">
+            <Card bordered={false} className={styles.card} title="实时预览">
               <div dangerouslySetInnerHTML={{ __html: this.state.preview || '在文本框内输入，在这里预览结果...' }} />
             </Card>
           </Col>
