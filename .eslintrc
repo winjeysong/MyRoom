@@ -30,7 +30,8 @@
     "require-yield": [1],
     "no-param-reassign": "warn",
     "camelcase": "warn",
-    "no-underscore-dangle": "warn"
+    "no-underscore-dangle": "warn",
+    "default-case": "warn"
   },
   "parserOptions": {
     "ecmaFeatures": {
