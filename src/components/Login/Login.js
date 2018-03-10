@@ -7,6 +7,10 @@ import { resultMsg as MSG } from '../../../controller/const';
 const FormItem = Form.Item;
 
 class Login extends React.Component {
+  state = {
+    loading: false,
+  };
+
   getValues() {
     const self = this;
     return new Promise((resolve, reject) => {
@@ -29,22 +33,41 @@ class Login extends React.Component {
         body: JSON.stringify(values),
       }).then((res) => {
         res.json().then((ress) => {
-          Message.info(ress.msg);
-          if (ress.flag) {
-            localStorage.setItem('id', ress.id); // store user id locally, use it to switch the menu item.
-            localStorage.setItem('token', ress.token); // store token locally
-            setTimeout(() => {
-              location.href = `/usercenter/${ress.id}`;
-            }, 1000);
-          } else if (ress.msg === MSG.LOGIN_USER_NOT_EXISTENCE) {
-            setTimeout(() => {
-              location.href = '/register';
-            }, 1000);
+          switch (ress.msg) {
+            case MSG.LOGIN_SUCCESS:
+              localStorage.setItem('id', ress.id); // store user id locally, use it to switch the menu item.
+              localStorage.setItem('token', ress.token); // store token locally
+              Message.success(ress.msg);
+              setTimeout(() => {
+                location.href = `/usercenter/${ress.id}`;
+              }, 1000);
+              break;
+            case MSG.LOGIN_USER_NOT_EXISTENCE:
+              Message.warning(ress.msg);
+              setTimeout(() => {
+                location.href = '/register';
+              }, 2000);
+              break;
+            case MSG.LOGIN_PASSWD_ERR:
+              Message.error(ress.msg);
+              setTimeout(() => {
+                this.setState({ loading: false });
+              }, 2000);
+              break;
           }
         });
       });
     }
   }
+
+  handleLoading = () => {
+    this.props.form.validateFields((err) => {
+      if (!err) {
+        this.setState({ loading: true });
+      }
+    });
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -71,7 +94,7 @@ class Login extends React.Component {
             })(
               <Checkbox>记住密码</Checkbox>,
             )}
-            <Button type="primary" htmlType="submit" className={styles['login-btn']}>
+            <Button type="primary" htmlType="submit" loading={this.state.loading} onClick={this.handleLoading} className={styles['login-btn']}>
               登录
             </Button>
           </FormItem>

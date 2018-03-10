@@ -27,6 +27,7 @@ class UserPost extends React.Component {
     super(props);
     this.state = {
       preview: '',
+      loading: false,
     };
     this.onContentInput = this.onContentInput.bind(this);
   }
@@ -82,6 +83,14 @@ class UserPost extends React.Component {
     }
   }
 
+  handleLoading = () => {
+    this.props.form.validateFields((err) => {
+      if (!err) {
+        this.setState({ loading: true });
+      }
+    });
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -110,7 +119,7 @@ class UserPost extends React.Component {
                   )}
                 </FormItem>
                 <FormItem style={{ textAlign: 'right' }}>
-                  <Button type="primary" htmlType="submit">
+                  <Button type="primary" htmlType="submit" loading={this.state.loading} onClick={this.handleLoading}>
                     保存
                   </Button>
                 </FormItem>

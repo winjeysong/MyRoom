@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Input, Cascader, Select, Button, AutoComplete, Message } from 'antd';
 import fetch from 'dva/fetch';
 import styles from './Register.css';
+import { resultMsg as MSG } from '../../../controller/const';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -35,6 +36,7 @@ class Register extends React.Component {
   state = {
     confirmDirty: false,
     autoCompleteResult: [],
+    loading: false,
   };
   getValues() {
     const self = this;
@@ -58,11 +60,25 @@ class Register extends React.Component {
         body: JSON.stringify(values),
       }).then((res) => {
         res.json().then((ress) => {
-          Message.info(ress.msg);
-          if (ress.flag) {
-            setTimeout(() => {
-              location.href = '/login';
-            }, 1000);
+          switch (ress.msg) {
+            case MSG.REGISTER_SUCCESS:
+              Message.success(ress.msg);
+              setTimeout(() => {
+                location.href = '/login';
+              }, 2000);
+              break;
+            case MSG.REGISTER_USER_EXISTED:
+              Message.warning(ress.msg);
+              setTimeout(() => {
+                this.setState({ loading: false });
+              }, 2000);
+              break;
+            case MSG.REGISTER_FAILURE:
+              Message.error(ress.msg);
+              setTimeout(() => {
+                this.setState({ loading: false });
+              }, 2000);
+              break;
           }
         });
       });
@@ -93,6 +109,14 @@ class Register extends React.Component {
       autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
     }
     this.setState({ autoCompleteResult });
+  }
+
+  handleLoading = () => {
+    this.props.form.validateFields((err) => {
+      if (!err) {
+        this.setState({ loading: true });
+      }
+    });
   }
 
   render() {
@@ -228,7 +252,7 @@ class Register extends React.Component {
             )}
           </FormItem>
           <FormItem {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit" style={{ width: '100%' }}>注册</Button>
+            <Button type="primary" htmlType="submit" loading={this.state.loading} onClick={this.handleLoading} style={{ width: '100%' }}>注册</Button>
           </FormItem>
         </Form>
       </div>
