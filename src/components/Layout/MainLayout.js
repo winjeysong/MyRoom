@@ -5,7 +5,7 @@ import FooterMsg from '../../components/FooterMsg/FooterMsg';
 import styles from './MainLayout.less';
 
 const { Header, Content, Footer } = Layout;
-const { SubMenu } = Menu;
+const { SubMenu, ItemGroup } = Menu;
 
 function LayoutWrapper({ content, location }) {
   const pathname = /(\/\w+)/i.exec(location.pathname); // match '/usercenter' or '/about', and etc.
@@ -22,9 +22,12 @@ function LayoutWrapper({ content, location }) {
         >
           <Menu.Item key="/usercenter"><Link to={`/usercenter/${id}`}><Icon type="smile" />个人中心</Link></Menu.Item>
           <SubMenu title={<span><Icon type="setting" />操作</span>}>
-            <Menu.Item key="/userpost"><Link to="/userpost"><Icon type="file-add" />新建文章</Link></Menu.Item>
-            {/* <Menu.Item key="/useredit"><Link to="/useredit">
-          <Icon type="edit" />修改文章</Link></Menu.Item> */}
+            <ItemGroup title="文章">
+              <Menu.Item key="/userpost"><Link to="/userpost"><Icon type="file-add" />新建</Link></Menu.Item>
+            </ItemGroup>
+            <ItemGroup title="用户">
+              <Menu.Item key="/usermodify"><Link to="/usermodify"><Icon type="edit" />资料修改</Link></Menu.Item>
+            </ItemGroup>
           </SubMenu>
           <Menu.Item key="/about"><Link to="/about"><Icon type="info-circle-o" />关于</Link></Menu.Item>
         </Menu>
