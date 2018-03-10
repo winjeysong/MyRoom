@@ -39,7 +39,7 @@ class Register extends React.Component {
   getValues() {
     const self = this;
     return new Promise((resolve, reject) => {
-      self.props.form.validateFields((err, values) => {
+      self.props.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           resolve(values);
         } else {
@@ -52,7 +52,6 @@ class Register extends React.Component {
     e.preventDefault();
     const values = await this.getValues();
     if (values) {
-      console.log(values);
       fetch('/api/user/user-register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
