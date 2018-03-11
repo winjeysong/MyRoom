@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const jwtThen = require('jwt-then');
 const User = require('../models/user');
 const { jwt_secret } = require('../config/config');
-const { resultMsg } = require('./const');
+const { resultMsg, authMsg } = require('./const');
 
 async function userRegister(ctx) {
   const { username, email, password, residence, cellphone, website } = ctx.request.body;
@@ -85,14 +85,22 @@ async function userDisplay(ctx) {
   const id = ctx.params.id;
   const token = ctx.headers.authorization;
   const payload = await jwtThen.verify(token.split(' ')[1], jwt_secret); // decode jwt payload
+  const res = {
+    flag: false,
+    msg: authMsg.AUTH_FAILURE,
+  };
   // const payload = ctx.state.jwtdata;
   // decoded payload processed by koa-jwt, same as the value above
   const select = 'username email cellphone residence website';
   const user = await User.findById(id, select);
-  if (user) {
+  if (user && token) {
     if (payload.name === user.username) {
       ctx.body = user;
+    } else {
+      ctx.body = res;
     }
+  } else {
+    ctx.body = res;
   }
 }
 
@@ -105,25 +113,27 @@ async function userUpdate(ctx) {
   const compare = await bcrypt.compare(oldpassword, oldUser.password);
   const hash = await bcrypt.hash(password, 10);
 
-  if (payload.name === oldUser.username) {
-    if (compare) {
-      await User.findByIdAndUpdate(id, {
-        email,
-        password: hash,
-        residence,
-        cellphone,
-        website,
-      });
+  if (token) {
+    if (payload.name === oldUser.username) {
+      if (compare) {
+        await User.findByIdAndUpdate(id, {
+          email,
+          password: hash,
+          residence,
+          cellphone,
+          website,
+        });
 
-      ctx.body = {
-        flag: true,
-        msg: resultMsg.MODIFY_USER_INFO_SUCCESS,
-      };
-    } else {
-      ctx.body = {
-        flag: false,
-        msg: resultMsg.MODIFY_PASSWD_NOT_EQUAL,
-      };
+        ctx.body = {
+          flag: true,
+          msg: resultMsg.MODIFY_USER_INFO_SUCCESS,
+        };
+      } else {
+        ctx.body = {
+          flag: false,
+          msg: resultMsg.MODIFY_PASSWD_NOT_EQUAL,
+        };
+      }
     }
   }
 }

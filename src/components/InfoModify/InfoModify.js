@@ -68,15 +68,22 @@ class InfoModify extends React.Component {
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
-      res.json().then((info) => {
-        const { username, email, residence, cellphone, website } = info;
-        setFieldsValue({
-          username,
-          email,
-          residence,
-          cellphone,
-          website,
-        });
+      res.json().then((ress) => {
+        if (ress.username) {
+          const { username, email, residence, cellphone, website } = ress;
+          setFieldsValue({
+            username,
+            email,
+            residence,
+            cellphone,
+            website,
+          });
+        } else if (ress.msg) {
+          Message.error(ress.msg);
+          setTimeout(() => {
+            location.href = '/login';
+          }, 2000);
+        }
       });
     });
   }

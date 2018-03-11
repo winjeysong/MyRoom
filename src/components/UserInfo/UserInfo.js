@@ -6,6 +6,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import axios from 'axios';
+import { Message } from 'antd';
 import styles from './UserInfo.css';
 import InfoWrapper from '../InfoWrapper/InfoWrapper';
 
@@ -49,10 +50,18 @@ class UserInfo extends React.Component {
   fetchAll(id) {
     axios.all([UserInfo.fetchInfo(id), UserInfo.fetchPost(id)])
       .then(axios.spread((infoRes, postsRes) => {
-        this.setState({
-          info: infoRes.data,
-          posts: postsRes.data,
-        });
+        if (infoRes.data.username && postsRes.data[0].content) {
+          this.setState({
+            info: infoRes.data,
+            posts: postsRes.data,
+          });
+        } else if (infoRes.data.msg && postsRes.data.msg) {
+          console.log(infoRes.data.msg);
+          Message.error(infoRes.data.msg);
+          setTimeout(() => {
+            location.href = '/login';
+          }, 2000);
+        }
       }));
   }
 

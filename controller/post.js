@@ -6,7 +6,7 @@ const moment = require('moment');
 const jwt = require('jwt-then');
 const { jwt_secret } = require('../config/config');
 const Post = require('../models/post');
-const { postMsg } = require('./const');
+const { postMsg, authMsg } = require('./const');
 
 async function postSave(ctx) {
   // get post title, content, and authorId
@@ -38,6 +38,10 @@ async function postsGet(ctx) {
   const payload = await jwt.verify(token.split(' ')[1], jwt_secret); // decode jwt payload
   // const payload = ctx.state.jwtdata; // decoded payload processed by koa-jwt
   const id = ctx.params.id;
+  const res = {
+    flag: false,
+    msg: authMsg.AUTH_FAILURE,
+  };
   // get all posts of one author(=user._id).
   const posts = await Post.find({ author: id });
   if (token) {
@@ -47,7 +51,11 @@ async function postsGet(ctx) {
       }];
     } else if (payload.name === posts[0].username) {
       ctx.body = posts;
+    } else {
+      ctx.body = res;
     }
+  } else {
+    ctx.body = res;
   }
 }
 
@@ -58,11 +66,13 @@ async function postShow(ctx) {
   const postId = ctx.params.postid;
   const select = 'title date content username';
   const post = await Post.findById(postId, select);
-  if (token) {
-    if (payload.name === post.username) {
-      ctx.body = post;
+  if (post) {
+    if (token) {
+      if (payload.name === post.username) {
+        ctx.body = post;
+      }
     }
-  } else {
+  } else if (!post) {
     ctx.body = {
       title: 'No Data.',
       date: '',
@@ -70,6 +80,7 @@ async function postShow(ctx) {
     };
   }
 }
+
 
 module.exports = {
   postSave,
