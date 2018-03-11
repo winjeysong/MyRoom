@@ -7,9 +7,17 @@ function ContentLayout({ title, things }) {
       span: 22,
       offset: 1,
     },
-    md: {
+    sm: {
       span: 20,
       offset: 2,
+    },
+    md: {
+      span: 18,
+      offset: 3,
+    },
+    lg: {
+      span: 16,
+      offset: 4,
     },
   };
 
