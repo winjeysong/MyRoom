@@ -28,7 +28,7 @@ async function postSave(ctx) {
   if (!newPost.errors) {
     ctx.body = {
       flag: true,
-      msg: postMsg.POSTS_SAVE_SUCCESS,
+      msg: postMsg.SAVE_POST_SUCCESS,
     };
   }
 }
@@ -81,9 +81,32 @@ async function postShow(ctx) {
   }
 }
 
+async function postUpdate(ctx) {
+  const postId = ctx.params.postid;
+  const { title, content } = ctx.request.body;
+  const token = ctx.headers.authorization;
+  const payload = await jwt.verify(token.split(' ')[1], jwt_secret); // decode jwt payload
+  const oldPost = await Post.findById(postId, 'username');
+  if (token) {
+    if (payload.name === oldPost.username) {
+      await Post.findByIdAndUpdate(postId, {
+        title,
+        content,
+        date: moment().format('YYYY-MM-DD HH:mm'),
+      });
+
+      ctx.body = {
+        flag: true,
+        msg: postMsg.MODIFY_POST_SUCCESS,
+      };
+    }
+  }
+}
+
 
 module.exports = {
   postSave,
   postsGet,
   postShow,
+  postUpdate,
 };

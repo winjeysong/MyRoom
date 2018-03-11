@@ -6,15 +6,19 @@ import styles from './InfoWrapper.css';
 
 function InfoWrapper({ info, posts }) {
   const postsList = posts.reverse().map((post, index) => {
-    const linkProps = {
+    const titleProps = {
       to: post._id ? `/article/${post._id}` : '/userpost',
-      key: index,
       className: styles.link,
     };
+    const articleProps = {
+      key: index,
+      title: <Link {...titleProps}>{post.title}</Link>,
+      date: post.date,
+      content: post.content,
+      extra: <Link to={`/postmodify/${post._id}`}>编辑</Link>,
+    };
     return (
-      <Link {...linkProps}>
-        <Article title={post.title} date={post.date} content={post.content} extra={<Link to={`/postoperation/${post._id}`} style={{ fontSize: 14, fontWeight: 300 }}>编辑</Link>} />
-      </Link>
+      <Article {...articleProps} />
     );
   });
 
@@ -22,7 +26,7 @@ function InfoWrapper({ info, posts }) {
     title: '个人资料',
     bordered: false,
     className: styles.card,
-    extra: <Link to={`/usermodify/${info._id}`} style={{ fontSize: 14, fontWeight: 300 }}>修改</Link>,
+    extra: <Link to={`/usermodify/${info._id}`}>修改</Link>,
   };
   const infoCard = info.username ? (
     <Card {...cardProps}>

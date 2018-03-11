@@ -14,7 +14,8 @@ module.exports = {
     MODIFY_PASSWD_NOT_EQUAL: '校验失败，请重新输入原密码',
   },
   postMsg: {
-    POSTS_SAVE_SUCCESS: '文章保存成功',
+    SAVE_POST_SUCCESS: '文章保存成功',
+    MODIFY_POST_SUCCESS: '文章已编辑并保存成功',
   },
   authMsg: {
     AUTH_FAILURE: '认证失败，请重新登陆',

@@ -3,7 +3,7 @@
  */
 
 const { userRegister, userLogin, userDisplay, userUpdate } = require('./user');
-const { postSave, postsGet, postShow } = require('./post');
+const { postSave, postsGet, postShow, postUpdate } = require('./post');
 
 module.exports = {
   userRegister,
@@ -13,4 +13,5 @@ module.exports = {
   postSave,
   postsGet,
   postShow,
+  postUpdate,
 };

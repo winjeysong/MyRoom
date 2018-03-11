@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Card } from 'antd';
+import { Link } from 'dva/router';
 import marked from 'marked';
 import highlight from 'highlight.js';
 import styles from './ArticlePage.css';
@@ -56,7 +57,7 @@ class ArticlePage extends React.Component {
     const { post, md } = this.state;
     const title = <h1>{post.title}</h1>;
     const content = (
-      <Card bordered={false} className={styles['post-card']}>
+      <Card bordered={false} extra={<Link to={`/postmodify/${this.props.postId}`}>编辑</Link>} className={styles['post-card']}>
         <div className={styles['post-date']}>{post.date}</div>
         <div className={styles['post-content']}>{<div dangerouslySetInnerHTML={{ __html: md }} />}</div>
       </Card>
