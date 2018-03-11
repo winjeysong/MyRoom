@@ -43,7 +43,7 @@ async function postsGet(ctx) {
     msg: authMsg.AUTH_FAILURE,
   };
   // get all posts of one author(=user._id).
-  const posts = await Post.find({ author: id });
+  const posts = await Post.find({ author: id }).sort({ date: -1 });
   if (token) {
     if (posts.length === 0) {
       ctx.body = [{

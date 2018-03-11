@@ -5,7 +5,7 @@ import Article from '../Article/Article';
 import styles from './InfoWrapper.css';
 
 function InfoWrapper({ info, posts }) {
-  const postsList = posts.reverse().map((post, index) => {
+  const postsList = posts.map((post, index) => {
     const titleProps = {
       to: post._id ? `/article/${post._id}` : '/userpost',
       className: styles.link,
