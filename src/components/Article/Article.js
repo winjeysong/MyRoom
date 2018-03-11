@@ -22,9 +22,9 @@ marked.setOptions({
   breaks: true,
 });
 
-function Article({ title, date, content }) {
+function Article({ title, date, content, extra }) {
   return (
-    <Card title={title} bordered={false} className={styles['post-card']}>
+    <Card title={title} bordered={false} className={styles['post-card']} extra={extra} >
       <div className={styles['post-date']}>{date}</div>
       <div className={styles['post-content']}>{<div dangerouslySetInnerHTML={{ __html: marked(content) }} />}</div>
     </Card>

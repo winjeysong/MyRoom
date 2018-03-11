@@ -13,13 +13,19 @@ function InfoWrapper({ info, posts }) {
     };
     return (
       <Link {...linkProps}>
-        <Article title={post.title} date={post.date} content={post.content} />
+        <Article title={post.title} date={post.date} content={post.content} extra={<Link to={`/postoperation/${post._id}`} style={{ fontSize: 14, fontWeight: 300 }}>编辑</Link>} />
       </Link>
     );
   });
 
+  const cardProps = {
+    title: '个人资料',
+    bordered: false,
+    className: styles.card,
+    extra: <Link to={`/usermodify/${info._id}`} style={{ fontSize: 14, fontWeight: 300 }}>修改</Link>,
+  };
   const infoCard = info.username ? (
-    <Card title="个人资料" bordered={false} className={styles.card}>
+    <Card {...cardProps}>
       <ul className={styles['list-wrapper']}>
         <li className={styles.list}>
           <span className={styles['info-key']}><Icon type="user" />用户名</span>
