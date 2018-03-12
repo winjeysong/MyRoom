@@ -40,6 +40,7 @@ class UserInfo extends React.Component {
     this.state = {
       info: {},
       posts: [],
+      loading: true,
     };
   }
 
@@ -55,6 +56,11 @@ class UserInfo extends React.Component {
             info: infoRes.data,
             posts: postsRes.data,
           });
+          setTimeout(() => {
+            this.setState({
+              loading: false,
+            });
+          }, 500);
         } else if (infoRes.data.msg && postsRes.data.msg) {
           Message.error(infoRes.data.msg);
           setTimeout(() => {
@@ -68,7 +74,7 @@ class UserInfo extends React.Component {
     const { info, posts } = this.state;
     return (
       <div className={styles.normal}>
-        <InfoWrapper info={info} posts={posts} />
+        <InfoWrapper info={info} posts={posts} loading={this.state.loading} />
       </div>
     );
   }

@@ -4,7 +4,7 @@ import { Link } from 'dva/router';
 import Article from '../Article/Article';
 import styles from './InfoWrapper.css';
 
-function InfoWrapper({ info, posts }) {
+function InfoWrapper({ info, posts, loading }) {
   const postsList = posts.map((post, index) => {
     const titleProps = {
       to: post._id ? `/article/${post._id}` : '/userpost',
@@ -16,20 +16,21 @@ function InfoWrapper({ info, posts }) {
       date: post.date,
       content: post.content,
       extra: <Link to={`/postmodify/${post._id}`}>编辑</Link>,
+      loading,
     };
     return (
       <Article {...articleProps} />
     );
   });
 
-  const cardProps = {
+  const infoProps = {
     title: '个人资料',
     bordered: false,
     className: styles.card,
     extra: <Link to={`/usermodify/${info._id}`}>修改</Link>,
   };
   const infoCard = info.username ? (
-    <Card {...cardProps}>
+    <Card {...infoProps}>
       <ul className={styles['list-wrapper']}>
         <li className={styles.list}>
           <span className={styles['info-key']}><Icon type="user" />用户名</span>
