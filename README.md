@@ -1,4 +1,4 @@
-# My Room
+# 😄My Room
 ![my room](http://p5h83rark.bkt.clouddn.com/preview.png-myroom)
 >A demo of winjeysong.
 ## 概述
@@ -52,8 +52,7 @@ npm run server
 
 ## 结果预览
 ### 响应式
-1. 首页响应式效果
-  ![主页响应式预览](http://p5h83rark.bkt.clouddn.com/responsive-homepage.gif-myroom)
+1. [主页响应式预览](http://p5h83rark.bkt.clouddn.com/responsive-homepage.gif)(gif图太大，无法加载，点击链接查看)
   
 2. AntD导航组件无响应式功能，为其增加了响应式功能
   ![用户中心响应式预览](http://p5h83rark.bkt.clouddn.com/responsive-usercenter.gif-myroom)
