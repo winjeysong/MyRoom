@@ -7,7 +7,7 @@ import styles from './InfoWrapper.css';
 function InfoWrapper({ info, posts, loading }) {
   const postsList = posts.map((post, index) => {
     const titleProps = {
-      to: post._id ? `/article/${post._id}` : '/userpost',
+      to: `/article/${post._id}`,
       className: styles.link,
     };
     const articleProps = {
@@ -15,7 +15,7 @@ function InfoWrapper({ info, posts, loading }) {
       title: <Link {...titleProps}>{post.title}</Link>,
       date: post.date,
       content: post.content,
-      extra: <Link to={`/postmodify/${post._id}`}>编辑</Link>,
+      extra: (post._id ? <Link to={`/postmodify/${post._id}`}>编辑</Link> : <Link to={'/userpost'}>新建</Link>),
       loading,
     };
     return (
