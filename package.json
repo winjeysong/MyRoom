@@ -10,7 +10,7 @@
     "server": "NODE_ENV=production node app"
   },
   "engines": {
-    "install-node": "6.11.1"
+    "install-node": "8.9.0"
   },
   "dependencies": {
     "antd": "^2.13.10",
