@@ -56,7 +56,6 @@ class UserInfo extends React.Component {
             posts: postsRes.data,
           });
         } else if (infoRes.data.msg && postsRes.data.msg) {
-          console.log(infoRes.data.msg);
           Message.error(infoRes.data.msg);
           setTimeout(() => {
             location.href = '/login';
