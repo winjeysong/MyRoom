@@ -4,6 +4,7 @@ import highlight from 'highlight.js';
 import { Form, Input, Icon, Card, Button, Message, Row, Col } from 'antd';
 import fetch from 'dva/fetch';
 import styles from './PostModify.css';
+import PostDelete from '../PostDelete/PostDelete';
 
 const FormItem = Form.Item;
 const TextArea = Input.TextArea;
@@ -30,6 +31,9 @@ class PostModify extends React.Component {
     this.state = {
       preview: '',
       loading: false,
+      delLoading: false,
+      disable: false,
+      delDisable: false,
     };
     this.onContentInput = this.onContentInput.bind(this);
   }
@@ -110,13 +114,31 @@ class PostModify extends React.Component {
   handleLoading = () => {
     this.props.form.validateFields((err) => {
       if (!err) {
-        this.setState({ loading: true });
+        this.setState({
+          loading: true,
+          delDisable: true,
+        });
       }
+    });
+  }
+
+  handleDelLoading = () => {
+    this.setState({
+      delLoading: true,
+      disable: true,
     });
   }
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const delProps = {
+      postId: this.props.postId,
+      id: localStorage.getItem('id'),
+      loading: this.state.delLoading,
+      click: this.handleDelLoading,
+      disabled: this.state.delDisable,
+    };
+
     return (
       <div className={styles.normal}>
         <Row>
@@ -143,11 +165,12 @@ class PostModify extends React.Component {
                   )}
                 </FormItem>
                 <FormItem style={{ textAlign: 'right' }}>
-                  <Button type="primary" htmlType="submit" loading={this.state.loading} onClick={this.handleLoading}>
+                  <Button type="primary" htmlType="submit" loading={this.state.loading} onClick={this.handleLoading} disabled={this.state.disable}>
                     保存修改
                   </Button>
                 </FormItem>
               </Form>
+              <PostDelete {...delProps} />
             </Card>
           </Col>
           <Col xs={24} md={10}>

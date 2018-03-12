@@ -103,10 +103,36 @@ async function postUpdate(ctx) {
   }
 }
 
+async function postDelete(ctx) {
+  const postId = ctx.params.postid;
+  const token = ctx.headers.authorization;
+  const payload = await jwt.verify(token.split(' ')[1], jwt_secret); // decode jwt payload
+  const post = await Post.findById(postId, 'username');
+  const res = {
+    flag: false,
+    msg: authMsg.AUTH_FAILURE,
+  };
+  if (token) {
+    if (payload.name === post.username) {
+      await Post.findByIdAndRemove(postId);
+
+      ctx.body = {
+        flag: true,
+        msg: postMsg.DELETE_POST_SUCCESS,
+      };
+    } else {
+      ctx.body = res;
+    }
+  } else {
+    ctx.body = res;
+  }
+}
+
 
 module.exports = {
   postSave,
   postsGet,
   postShow,
   postUpdate,
+  postDelete,
 };

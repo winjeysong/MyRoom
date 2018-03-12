@@ -16,6 +16,7 @@ module.exports = {
   postMsg: {
     SAVE_POST_SUCCESS: '文章保存成功',
     MODIFY_POST_SUCCESS: '文章已编辑并保存成功',
+    DELETE_POST_SUCCESS: '文章删除成功',
   },
   authMsg: {
     AUTH_FAILURE: '认证失败，请重新登陆',
