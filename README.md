@@ -1,5 +1,5 @@
 # My Room
-![my room](http://p5h83rark.bkt.clouddn.com/preview.png)
+![my room](http://p5h83rark.bkt.clouddn.com/preview.png-myroom)
 >A demo of winjeysong.
 ## 概述
 本demo是从前端到后端的一个SPA，贯彻了前后端分离的思想。
@@ -21,7 +21,7 @@
 主要通过**栅格**和**媒体查询**来适配多终端（PC/移动端），适应不同屏幕大小。
 ### 2.实现功能
 * 用户注册及登陆
-* 使用 *JWT(JSON Web Token)* 进行用户登陆验证
+* 使用 *JWT(JSON Web Token)* 进行用户登陆验证
 * 用户资料修改
 * 用户对文章的CURD操作
 ### 3.不兼容IE8及以下
@@ -53,10 +53,10 @@ npm run server
 ## 结果预览
 ### 响应式
 1. 首页响应式效果
-  ![主页响应式预览](http://p5h83rark.bkt.clouddn.com/responsive-homepage.gif)
+  ![主页响应式预览](http://p5h83rark.bkt.clouddn.com/responsive-homepage.gif-myroom)
   
 2. AntD导航组件无响应式功能，为其增加了响应式功能
-  ![用户中心响应式预览](http://p5h83rark.bkt.clouddn.com/responsive-usercenter.gif)
+  ![用户中心响应式预览](http://p5h83rark.bkt.clouddn.com/responsive-usercenter.gif-myroom)
 
 ### 用户注册
 1. 注册成功
