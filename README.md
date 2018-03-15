@@ -28,18 +28,18 @@
 
 ## 本地调试
 ### 开发模式
-1. 使用roadhog开启前端devServer
+1. 使用roadhog开启前端devServer（默认端口8000）
 ```
 npm start
 ```
-2. 如需用到数据库，先用`mongod`命令开启本地数据库，再开启后端devServer。前端通过roadhog的proxy功能向后端devServer请求数据
+2. 如需用到数据库，先用`mongod`命令开启本地数据库，再开启后端devServer（默认端口3334）。前端通过roadhog的proxy功能向后端devServer请求数据
 ```
 mongod --dbpath yourlocalpath
 npm run devserver
 ```
 
 ### 生产模式
-先开启数据库，build页面，再开启服务端并连接数据库
+先开启数据库，build页面，再开启服务端（默认端口3333）并连接数据库
 ```
 mongod --dbpath yourlocalpath
 npm run build
@@ -88,6 +88,12 @@ npm run server
 1. 这部分的布局另外写了一个组件`BlurLayout`，用到AntD的Layout组件方便整体布局。有别于主页，这里的想法是做一个毛玻璃的背景，一个内凹陷的登陆/注册框，以及一个返回主页的header。
 2. 登陆使用AntD的表单组件，该组件封装了一些比较好用的方法和属性，可以很方便地请求、响应数据，与后端的交互十分便捷。
 3. 同样的响应式布局。
+
+效果图如下：
+* 登陆页
+![login-display](http://p5h83rark.bkt.clouddn.com/login-display-1.png)
+* 注册页
+![register-display](http://p5h83rark.bkt.clouddn.com/register-display-1.png)
 
 ##### 操作功能页
 这一部分的最终效果预览可以看[这个条目](#结果预览)下的相应内容
