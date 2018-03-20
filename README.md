@@ -228,7 +228,7 @@ npm run server
 
 ### 2.服务端
 
-在node server的框架选择上我纠结了很久，最后选择了[Koa2](http://koajs.com/)，它支持async和await语法，抛开烦人的回调；它不捆绑任何中间件，轻量化且，对开发者更为友好。
+在node server的框架选择上我纠结了很久，最后选择了[Koa2](http://koajs.com/)，它支持async和await语法，抛开烦人的回调；它不捆绑任何中间件，轻量化，对开发者更为友好。
 
 #### 服务端入口
 
