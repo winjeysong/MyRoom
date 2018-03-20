@@ -226,7 +226,196 @@ npm run server
 #### 总结
 整体布局与内容呈现没有特别大的难度，主要是CSS操作。CSS部分资料很多，也有很多前人实践的经验，不会就检索学习；记不清相关用法了就查文档。一边写一边摸索，后续再做相关记录总结，总的来说对自己帮助提升比较大。
 
-### 待继续补充...
+### 2.服务端
+
+在node server的框架选择上我纠结了很久，最后选择了[Koa2](http://koajs.com/)，它支持async和await语法，抛开烦人的回调；它不捆绑任何中间件，轻量化且，对开发者更为友好。
+
+#### 服务端入口
+
+贴一个`app.js`文件，它包含中间件加载及启动数据库和服务端。
+
+```js
+/**
+ * koa server
+ * use middlewares, connect mongodb with mongoose, start server
+ */
+
+const Koa = require('koa');
+const routers = require('./routes/index');
+const { middlewaresLoad: middlewares, dbConnect: db, serverStart: server } = require('./config/tool');
+
+const app = new Koa();
+
+// -------- MIDDLEWARES CONFIG --------
+middlewares(app);
+
+// -------- DB CONFIG --------
+db();
+
+// -------- INIT Routes --------
+app.use(routers.routes()).use(routers.allowedMethods());
+
+// -------- START SERVER --------
+server(app);
+```
+
+从代码里可以比较清晰地看到，我们需要做的四件事情：
+
+1. 加载中间件
+2. 启动数据库
+3. 路由配置
+4. 启动服务
+
+那么继续往下分解，正好分成四个模块，除了路由配置放在`./routes`目录下，其三个放在 `./config`目录下。
+
+##### 1.加载中间件（JWT后续需展开）
+
+`middlewares_load.js`模块主要就是用来加载中间件的（省略所引入的node package）：
+
+```Javascript
+const env = process.env.NODE_ENV;
+
+module.exports = (app) => {
+  // log
+  app.use(convert(logger()));
+
+  // parse body
+  app.use(bodyParser());
+
+  // jwt
+  app.use(koaJwt({ secret: jwt_secret, key: 'jwtdata' }).unless({
+    path: [/^\/api\/user\/user-login/, /^\/api\/user\/user-register/, /^\/login/, /^\/register/, /^\//],
+  }));
+
+  if (env === 'production') {
+    // load static sources
+    app.use(convert(serve(path.resolve(build_path))));
+  }
+};
+```
+
+用到的中间件在代码里能比较清楚地看到。其中关于**JWT**的内容需要后面再做展开。
+
+##### 2.启动数据库（model及其他操作后续展开）
+
+`server_start.js`：
+
+* 使用[Mongoose](http://mongoosejs.com/)来操作MongoDB，真的非常方便
+* 使用`chalk`对log信息进行颜色区分，便于了解MongoDB的连接状态。
+* prod/dev环境分别连接不同的`database`
+
+```javascript
+const mongoose = require('mongoose');
+const config = require('./config');
+
+const style = config.log_style;
+const env = process.env.NODE_ENV;
+
+const dbUrlControl = (dbUrl) => {
+  mongoose.Promise = global.Promise;
+  mongoose.connect(dbUrl);
+  // connect mongodb successfully
+  mongoose.connection.on('connected', () => {
+    console.log(style.info(`${style.success('[SUCCESS]')} MongoDB has connected to ${style.em(dbUrl)}.`));
+  });
+  // fail to connect
+  mongoose.connection.on('error', (err) => {
+    console.log(`${style.error('[ERROR] Failed to connect MongoDB')}.\n${err}`);
+  });
+  // disconnect
+  mongoose.connection.on('disconnected', () => {
+    console.log(style.warn('[WARN] MongoDB has disconnected.'));
+  });
+};
+
+module.exports = () => {
+  if (env === 'production') {
+    dbUrlControl(config.db_url);
+  } else if (env === 'development') {
+    dbUrlControl(config.dev.db_url);
+  }
+};
+```
+
+model及其他有关MongoDB的操作后续再做展开。
+
+##### 3.路由配置
+
+我这个demo主要是按照RESTful API的设计模式，所以后端路由就是数据接口。
+
+路由入口文件`index.js`：
+
+```javascript
+const router = require('koa-router')();
+const api = require('./api/index');
+const fs = require('fs');
+const path = require('path');
+const { build_filename, build_path } = require('../config/config');
+
+const filePath = `${path.join(build_path, build_filename)}.html`;
+const readFile = new Promise((resolve, reject) => {
+  fs.readFile(path.resolve(filePath), (err, data) => {
+    if (!err) {
+      resolve(data);
+    } else {
+      reject(err);
+    }
+  });
+});
+
+router 
+	// get the static html
+  .get('/*', async (ctx) => {
+    const html = await readFile;
+    ctx.type = 'html';
+    ctx.body = html;
+  })
+  .use('/api', api.routes(), api.allowedMethods());
+
+module.exports = router;
+```
+
+`./routes/api`入口文件：
+
+```javascript
+const router = require('koa-router')();
+const user = require('./userRouter');
+const post = require('./postRouter');
+
+router.use('/user', user.routes(), user.allowedMethods())  	//user api
+      .use('/post', post.routes(), post.allowedMethods());  //post api
+
+module.exports = router;
+```
+
+路由部分其实比较简单。对prod模式下静态资源的读取主要用到了node内建的`fs`和`path`模块。
+
+##### 4.启动服务
+
+不同环境监听不同端口，prod模式默认为3333，dev模式默认为3334，可在`config`文件内修改。
+
+```javascript
+const config = require('./config');
+
+const style = config.log_style;
+const env = process.env.NODE_ENV;
+
+const serverPortControl = (app, mode, serverPort) => {
+  app.listen(serverPort, () => {
+    console.log(style.info(`${style.success('[SUCCESS]')} ${mode}Server is listening on ${style.em(serverPort)}.`));
+  });
+};
+
+module.exports = (app) => {
+  if (env === 'production') {
+    serverPortControl(app, '', config.server_port);
+  } else if (env === 'development') {
+    serverPortControl(app, 'dev', config.dev.server_port);
+  }
+};
+```
+
+### 后续内容待补充
 
 ## 结果预览
 ### 响应式
