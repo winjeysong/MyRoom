@@ -31,7 +31,8 @@
     "no-param-reassign": "warn",
     "camelcase": "warn",
     "no-underscore-dangle": "warn",
-    "default-case": "warn"
+    "default-case": "warn",
+    "no-undef": "warn"
   },
   "parserOptions": {
     "ecmaFeatures": {

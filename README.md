@@ -4,6 +4,57 @@
 ## 概述
 本demo是从前端到后端的一个SPA，贯彻了前后端分离的思想。
 
+## 结构
+
+```bash
+.
+├── LICENSE
+├── README.md
+├── app.js  # node server
+├── config
+│   ├── config.js  # 配置参数
+│   ├── db_connect.js  # db连接
+│   ├── middlewares_load.js  # 中间件设置
+│   ├── server_start.js  # server配置
+│   └── tool.js
+├── controller  # controller层
+│   ├── const.js  # 一些常量
+│   ├── index.js						
+│   ├── post.js  # 文章数据交互
+│   └── user.js  # 用户数据交互
+├── dist  # 打包目录
+│   ├── static
+│   ├── t.96b3433b.js
+│   ├── t.a794e881.css
+│   └── t.html
+├── models  # model层
+│   ├── post.js
+│   └── user.js
+├── package-lock.json
+├── package.json
+├── public
+├── routes
+│   ├── api  # 接口目录
+│   └── index.js
+├── src  # view层（dva结构）
+│   ├── assets
+│   ├── components
+│   ├── index.css
+│   ├── index.ejs
+│   ├── index.js
+│   ├── models
+│   ├── router.js
+│   ├── routes
+│   ├── services
+│   ├── theme.js
+│   └── utils
+└── util  # 工具
+    ├── data_output.js
+    ├── filename_format.js
+    ├── fix_html.js
+    └── index.js
+```
+
 ## 资源
 除了基本的HTML、CSS、JavaScript及Node之外，主要用到了：
 * 主框架：React
