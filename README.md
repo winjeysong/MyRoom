@@ -469,4 +469,4 @@ module.exports = (app) => {
   ![修改成功](http://p5h83rark.bkt.clouddn.com/user-info-modify.gif)
 
   2. 修改失败
-  ![修改成功](http://p5h83rark.bkt.clouddn.com/user-info-modify-failed.gif)
+  ![修改失败](http://p5h83rark.bkt.clouddn.com/user-info-failed.gif)
